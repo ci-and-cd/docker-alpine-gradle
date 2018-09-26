@@ -8,7 +8,7 @@ services:
       dockerfile: Dockerfile
       args:
       - IMAGE_ARG_FILESERVER=${IMAGE_ARG_FILESERVER}
-      #- IMAGE_ARG_FILESERVER=${IMAGE_ARG_FILESERVER:-http://o9wbz99tz.bkt.clouddn.com}
+      #- IMAGE_ARG_FILESERVER=${IMAGE_ARG_FILESERVER:-http://fileserver.infra.top}
       - IMAGE_ARG_GRADLE_VERSION=${IMAGE_ARG_GRADLE_VERSION:-4.7}
     image: ${IMAGE_PREFIX:-cirepo}/${IMAGE_NAME:-gradle}:${IMAGE_TAG:-4.7-alpine}
   #docker-compose build dumper
