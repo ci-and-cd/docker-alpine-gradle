@@ -5,6 +5,7 @@ FROM cirepo/nix:2.1.1-alpine-3.8
 USER root
 
 
+ARG IMAGE_ARG_FILESERVER
 ARG IMAGE_ARG_GRADLE_VERSION
 
 
