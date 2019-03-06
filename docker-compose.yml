@@ -9,8 +9,8 @@ services:
       args:
       - IMAGE_ARG_FILESERVER=${IMAGE_ARG_FILESERVER}
       #- IMAGE_ARG_FILESERVER=${IMAGE_ARG_FILESERVER:-http://fileserver.infra.top}
-      - IMAGE_ARG_GRADLE_VERSION=${IMAGE_ARG_GRADLE_VERSION:-4.7}
-    image: ${IMAGE_PREFIX:-cirepo/}${IMAGE_NAME:-gradle}:${IMAGE_TAG:-4.7-alpine}
+      - IMAGE_ARG_GRADLE_VERSION=${IMAGE_ARG_GRADLE_VERSION:-5.2.1}
+    image: ${IMAGE_PREFIX:-cirepo/}${IMAGE_NAME:-gradle}:${IMAGE_TAG:-5.2.1-alpine}
   #docker-compose build dumper
   dumper:
     build:
@@ -22,4 +22,4 @@ services:
     build:
       context: .
       dockerfile: Dockerfile_archive
-    image: ${IMAGE_PREFIX:-cirepo/}${IMAGE_NAME:-gradle}:${IMAGE_TAG:-4.7-alpine}-archive
+    image: ${IMAGE_PREFIX:-cirepo/}${IMAGE_NAME:-gradle}:${IMAGE_TAG:-5.2.1-alpine}-archive

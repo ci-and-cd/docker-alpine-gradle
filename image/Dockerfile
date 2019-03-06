@@ -1,5 +1,5 @@
 
-FROM cirepo/nix:2.1.1-alpine-3.8
+FROM cirepo/nix:2.2.1-alpine-3.9
 
 
 USER root
@@ -9,24 +9,25 @@ ARG IMAGE_ARG_FILESERVER
 ARG IMAGE_ARG_GRADLE_VERSION
 
 
-COPY --from=cirepo/glibc:2.23-r3-alpine-3.8-archive /data/root /
-COPY --from=cirepo/java-oracle:8u181-alpine-3.8-archive /data/root/usr/lib/jvm/java-8-oracle /usr/lib/jvm/java-8-oracle
-ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
+COPY --from=cirepo/glibc:2.29-r0-alpine-3.9-archive /data/root /
+COPY --from=cirepo/java-11-openjdk:11.0.2-alpine-3.9-archive /data/root/usr/lib/jvm/java-11-openjdk /usr/lib/jvm/java-11-openjdk
+ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk
 
 
 COPY --chown=root:root docker /data
 
 
 RUN set -ex \
-  && if [ ! -f /data/gradle-${IMAGE_ARG_GRADLE_VERSION:-4.7}-bin.zip ]; then \
-       ${ARIA2C_DOWNLOAD} -d /data -o gradle-${IMAGE_ARG_GRADLE_VERSION:-4.7}-bin.zip \
-       ${IMAGE_ARG_FILESERVER:-https://downloads.gradle.org}/distributions/gradle-${IMAGE_ARG_GRADLE_VERSION:-4.7}-bin.zip; \
+  && GRADLE_ARCH=gradle-${IMAGE_ARG_GRADLE_VERSION:-5.2.1}-bin.zip \
+  && if [[ ! -f /data/${GRADLE_ARCH} ]]; then \
+       ${ARIA2C_DOWNLOAD} -d /data -o ${GRADLE_ARCH} \
+       ${IMAGE_ARG_FILESERVER:-https://downloads.gradle.org}/distributions/${GRADLE_ARCH}; \
      fi \
-  && unzip /data/gradle-${IMAGE_ARG_GRADLE_VERSION:-4.7}-bin.zip \
-  && mkdir /opt \
-  && mv gradle-${IMAGE_ARG_GRADLE_VERSION:-4.7} /opt/ \
-  && ln -sf /opt/gradle-${IMAGE_ARG_GRADLE_VERSION:-4.7} /opt/gradle \
-  && rm -f /data/gradle-${IMAGE_ARG_GRADLE_VERSION:-4.7}-bin.zip
+  && unzip /data/${GRADLE_ARCH} \
+  && mkdir -p /opt \
+  && mv gradle-${IMAGE_ARG_GRADLE_VERSION:-5.2.1} /opt/ \
+  && ln -sf /opt/gradle-${IMAGE_ARG_GRADLE_VERSION:-5.2.1} /opt/gradle \
+  && rm -f /data/${GRADLE_ARCH}
 
 
 USER alpine

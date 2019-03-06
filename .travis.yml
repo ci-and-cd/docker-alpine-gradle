@@ -14,8 +14,8 @@ env:
   global:
   - IMAGE_ARG_FILESERVER=
   matrix:
-  - IMAGE_ARG_GRADLE_VERSION=4.7
-  - IMAGE_ARG_GRADLE_VERSION=4.8.1
+#  - IMAGE_ARG_GRADLE_VERSION=4.8.1
+  - IMAGE_ARG_GRADLE_VERSION=5.2.1
 
 group: edge
 #install: true
